@@ -34,7 +34,7 @@ class Review(models.Model):
   updated_at = models.DateTimeField(auto_now=True)
   genre = models.CharField(max_length=50, choices=genre_choice)
   user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-  image = models.ImageField(upload_to='images/movies', default='no_img.png')
+  image = models.ImageField(upload_to='images/movies', blank=True)
   image_thumbnail = ImageSpecField(source='image',
                                 processors=[ResizeToFill(295, 295)],
                                 format='JPEG',
