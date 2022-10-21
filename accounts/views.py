@@ -14,7 +14,7 @@ from .forms import (
 # 회원가입
 def signup(request):
     if request.method == "POST":
-        form = UserCustomCreationForm(request.POST)
+        form = UserCustomCreationForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect("articles:index")
@@ -54,7 +54,9 @@ def accounts_update(request, pk):
     user = get_user_model().objects.get(pk=pk)
     if user == request.user:
         if request.method == "POST":
-            form = UserCustomChangeForm(request.POST, instance=request.user)
+            form = UserCustomChangeForm(
+                request.POST, request.FILES, instance=request.user
+            )
             if form.is_valid():
                 form.save()
                 return redirect("accounts:detail", request.user.pk)
