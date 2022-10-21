@@ -9,7 +9,7 @@
 
 {% block content %}
 <section class="review-main container my-5">
-    <h1 class='text-center fw-bold'>{{ article.title }}</h1>
+    <h1 class='text-center fw-bold mb-4'>{{ article.title }}</h1>
     <div class='review-main-info d-flex justify-content-center align-items-center'>
         <img class="reviewimage" src="{{ article.image.url }}" alt="{{ article.image }}">
         <div class="ms-4 informations">
@@ -19,8 +19,8 @@
             </div>
             <hr>
             <h4>{{ article.get_grade_display }}</h4>
-            <div class="review-user">
-                <img class='review-user-img' src="{{ article.user.image.url }}" alt="">
+            <div class="review-user d-flex align-items-center">
+                <img class='review-user-img me-3' src="{{ article.user.image.url }}" alt="">
                 <h5>Written by: {{ article.user.username }}</h5>
             </div>
             <p class='mt-3 text-muted'>{{ article.created_at }} | {{ article.updated_at }}</p>
@@ -53,11 +53,11 @@
     <div class="all-comments">
         {% for comment in article.comment_set.all %}
         <div class="comment my-3">
-            <div class="comment-user d-flex">
+            <div class="comment-user d-flex align-items-center">
                 <img class="comment-image" src="{{ comment.user.image.url }}" alt="" srcset="{{ comment.user.img }}">
                 <div class="comment-user-info">
-                    <h6>{{ comment.user }}</h6>
-                    <h6>{{ comment.created_at }}</h6>
+                    <h6 class='mb-0 fw-bold'>{{ comment.user }}</h6>
+                    <h6 class='mb-0'>{{ comment.created_at }}</h6>
                 </div>
             </div>
             <h5>{{ comment.content }}</h5>
