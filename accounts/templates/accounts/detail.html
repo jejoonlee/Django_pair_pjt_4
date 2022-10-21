@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="d-flex">
+  <h1>{{ user.username }}님의 프로필</h1>
+  <img src="{{ user.image.url }}">
+</div>
+
+<p>{{ user.email }}</p>
+<p>성별 : {{ user.gender }}</p>
+<p>좋아하는 장르 : {{ user.genre }}</p>
+
+
+{% endblock content %}
