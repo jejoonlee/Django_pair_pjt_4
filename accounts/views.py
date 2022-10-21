@@ -90,7 +90,6 @@ def password_update(request):
 
 
 # 프로필
-@login_required
 def detail(request, pk):
     user = get_user_model().objects.get(pk=pk)
     review = user.review_set.all()

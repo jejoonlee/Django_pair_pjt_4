@@ -54,6 +54,7 @@ def delete(request, pk):
     else:
         return redirect('articles:error')
 
+@login_required
 def detail(request, pk):
     article = Review.objects.get(pk=pk)
     form = CommentForm()
@@ -69,7 +70,6 @@ def comments(request, article_pk):
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
-            print(-1)
             temp = form.save(commit=False)
             temp.review = article
             temp.user = request.user
