@@ -58,7 +58,7 @@ def detail(request, pk):
     form = CommentForm()
     context = {
         'form': form,
-        'aritcle': article
+        'article': article
     }
     return render(request, 'articles/detail.html', context)
 
