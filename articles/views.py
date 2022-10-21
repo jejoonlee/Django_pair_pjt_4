@@ -55,21 +55,25 @@ def delete(request, pk):
 
 def detail(request, pk):
     article = Review.objects.get(pk=pk)
+    form = CommentForm()
     context = {
+        'form': form,
         'aritcle': article
     }
     return render(request, 'articles/detail.html', context)
 
 @login_required
 def comments(request, article_pk):
+    article = Review.objects.get(pk=article_pk)
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
+            print(-1)
             temp = form.save(commit=False)
-            temp.review_id = article_pk
+            temp.review = article
             temp.user = request.user
             temp.save()
-            return redirect('articles:detail', article_pk)
+            return redirect('articles:detail', article.pk)
 
 @login_required
 def comments_delete(request, article_pk, pk):
