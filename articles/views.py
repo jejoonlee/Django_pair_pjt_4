@@ -47,7 +47,8 @@ def update(request, pk):
 
 @login_required
 def delete(request, pk):
-    if request.user.pk == pk:
+    article = Review.objects.get(pk=pk)
+    if request.user.pk == article.user.pk:
         Review.objects.get(pk=pk).delete()
         return redirect('articles:index')
     else:
