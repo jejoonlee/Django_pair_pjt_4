@@ -16,8 +16,9 @@
     <button class="btn btn-primary" type="submit">OK</button>
 </form>
 
-{% for comment in article.comments_set.all %}
-{{ comment.content }}
-{{ comment.user }} | {{ comment.created_at }}
+{% for comment in article.comment_set.all %}
+<p>{{ comment.content }}</p>
+<p>{{ comment.user }} | {{ comment.created_at }}</p>
+<a href="{% url 'articles:comments_delete' article.pk comment.pk %}">삭제</a>
 {% endfor %}
 {% endblock content %}
