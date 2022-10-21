@@ -40,11 +40,16 @@ def update(request, pk):
             'form': form
         }
         return render(request, 'articles/forms.html', context)
+    else:
+        return redirect('articles:error')
 
 @login_required
 def delete(request, pk):
-    Article.objects.get(pk=pk).delete()
-    return redirect('articles:index')
+    if request.user.pk == pk:
+        Article.objects.get(pk=pk).delete()
+        return redirect('articles:index')
+    else:
+        return redirect('articles:error')
 
 def detail(request, pk):
     article = Article.objects.get(pk=pk)
@@ -65,8 +70,12 @@ def comments(request, article_pk):
 
 @login_required
 def comments_delete(request, article_pk, pk):
-    Comments.objects.get(pk=pk).delete()
-    return redirect('articles:detail', article_pk)
+    comment = Comments.objects.get(pk=pk)
+    if comment.user == request.user:
+        comment.delete()
+        return redirect('articles:detail', article_pk)
+    else:
+        return redirect('articles:error')
 
-
-
+def error(request):
+    return render(request, 'articles/error.html')
