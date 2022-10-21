@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block body %}
+
+{{ aritcle.title }}
+{{ article.user.username }}
+{{ article.grade }} | {{ article.genre }}
+{{ article.content }}
+{{ article.moviename }}
+{{ article.created_at }} | {{ article.updated_at }}
+
+<h3> 댓글 </h3>
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button class="btn btn-primary" type="submit">OK</button>
+    <a href="{% url 'articles:index' %}" class="btn btn-danger">Cancel</a>
+</form>
+{% for comment in article.comments_set.all %}
+{{ comment.content }}
+{{ comment.user }} | {{ comment.created_at }}
+{% endfor %}
+{% endblock %}
