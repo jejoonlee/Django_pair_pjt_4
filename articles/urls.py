@@ -11,4 +11,5 @@ urlpatterns = {
     path('<int:pk>', views.detail, name='detail'),
     path('comments', views.comments, name='comments'),
     path('<int:article_pk>/comments_delete/<int:pk>', views.comments_delete, name='comments_delete'),
+    path('error', views.error, name='error'),
 }
