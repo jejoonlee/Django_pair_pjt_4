@@ -32,7 +32,7 @@ def login(request):
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
-            return redirect("articles:index")
+            return redirect(request.GET.get("next") or "articles:index")
     else:
         form = AuthenticationForm()
     context = {
@@ -42,6 +42,7 @@ def login(request):
 
 
 # 로그아웃
+@login_required
 def logout(request):
     auth_logout(request)
     return redirect("articles:index")
@@ -49,21 +50,26 @@ def logout(request):
 
 # 회원수정
 @login_required
-def accounts_update(request):
-    if request.method == "POST":
-        form = UserCustomChangeForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            return redirect("accounts:detail", request.user.pk)
+def accounts_update(request, pk):
+    user = get_user_model().objects.get(pk=pk)
+    if user == request.user:
+        if request.method == "POST":
+            form = UserCustomChangeForm(request.POST, instance=request.user)
+            if form.is_valid():
+                form.save()
+                return redirect("accounts:detail", request.user.pk)
+        else:
+            form = UserCustomChangeForm(instance=request.user)
+        context = {
+            "form": form,
+        }
+        return render(request, "accounts/accounts_update.html", context)
     else:
-        form = UserCustomChangeForm(instance=request.user)
-    context = {
-        "form": form,
-    }
-    return render(request, "accounts/accounts_update.html", context)
+        return redirect("articles:error")
 
 
 # 비번수정
+@login_required
 def password_update(request):
     if request.method == "POST":
         form = UserCustomPasswordChangeForm(request.POST, request.user)
@@ -80,6 +86,7 @@ def password_update(request):
 
 
 # 프로필
+@login_required
 def detail(request, pk):
     user = get_user_model().objects.get(pk=pk)
     context = {
