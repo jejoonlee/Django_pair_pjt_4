@@ -1,9 +1,24 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
-{% block content %}
-<a href="{% url 'articles:create' %}" class="btn btn-primary">글 작성</a>
-{% for article in articles %}
-<a href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a> | {{ article.created_at }}
-{% endfor %}
 
+{% block content %}
+<div class="container mt-3">
+    <a href="{% url 'articles:create' %}" class="btn btn-primary">글 작성</a><br>
+    
+    <div class="row row-cols-4 mb-3">
+        {% for article in articles %}
+        <div class="col mt-3">
+            <div class="card shadow">
+                {% if article.image_thumbnail %}
+                <img class="card-top-img" src="{{ article.image_thumbnail.url }}" alt="없음">
+                {% else %}
+                <img class="card-top-img" src="https://dummyimage.com/295x295/000/fff" alt="">
+                {% endif %}
+                <a class="card-title" href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a>
+                <p class="text-muted">{{ article.created_at }}</p>
+            </div>
+        </div>
+        {% endfor %}        
+    </div>
+</div>
 {% endblock %}
