@@ -18,11 +18,18 @@ class Review(models.Model):
     ('Sci-fi', 'Sci-fi'),
     ('Others', 'Others'),
   )
+  rating_choice = (
+    ('1', '⭐'),
+    ('2', '⭐⭐'),
+    ('3', '⭐⭐⭐'),
+    ('4', '⭐⭐⭐⭐'),
+    ('5', '⭐⭐⭐⭐⭐'),
+  )
 
   title = models.CharField(max_length=50)
   content = models.TextField()
   movie_name = models.CharField(max_length=50)
-  grade = models.CharField(max_length=50)
+  grade = models.CharField(max_length=50, choices=rating_choice)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
   genre = models.CharField(max_length=50, choices=genre_choice)
