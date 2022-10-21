@@ -4,6 +4,8 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+
+from articles.models import Review
 from .forms import (
     UserCustomCreationForm,
     UserCustomChangeForm,
@@ -91,7 +93,9 @@ def password_update(request):
 @login_required
 def detail(request, pk):
     user = get_user_model().objects.get(pk=pk)
+    review = user.review_set.all()
     context = {
         "user": user,
+        "review": review,
     }
     return render(request, "accounts/detail.html", context)
