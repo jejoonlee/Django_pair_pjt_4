@@ -1,0 +1,20 @@
+/* review detail */
+
+.review-main{
+  border-radius: 15px;
+  padding: 2rem;
+  background-color: rgb(231, 231, 231);
+}
+
+.reviewimage{
+  height: 250px;
+  border-radius: 10px;
+}
+
+/* comment */
+
+.comment{
+  padding: 1rem;
+  box-shadow: 2px 2px 5px rgb(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
