@@ -11,7 +11,11 @@
 <section class="review-main container my-5">
     <h1 class='text-center fw-bold mb-4'>{{ article.title }}</h1>
     <div class='review-main-info d-flex justify-content-center align-items-center'>
-        <img class="reviewimage" src="{{ article.image.url }}" alt="{{ article.image }}">
+        {% if article.image_thumbnail %}
+        <img class="reviewimage" src="{{ article.image.url }}" alt="없음">
+        {% else %}
+        <img class="reviewimage" src="https://dummyimage.com/295x295/000/fff" alt="">
+        {% endif %}
         <div class="ms-4 informations">
             <div class='d-flex mb-3 align-items-end'>
                 <h3 class="mb-0 fw-bold">{{ article.movie_name }}</h3>
