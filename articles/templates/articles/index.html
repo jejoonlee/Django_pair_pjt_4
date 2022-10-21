@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
-{% block body %}
-
+{% load bootstrap5 %}
+{% block content %}
+<a href="{% url 'articles:create' %}" class="btn btn-primary">글 작성</a>
 {% for article in articles %}
 <a href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a> | {{ article.created_at }}
 {% endfor %}
